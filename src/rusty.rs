@@ -1,13 +1,15 @@
 #![crate_type="lib"]
+#![feature(lang_items, intrinsics, no_std)]
 #![no_std]
-#![feature(globs)]
-#![feature(lang_items)]
-#![feature(intrinsics)]
-
-extern crate core;
 
 use pebblerust::lib::*;
 use pebblerust::types::*;
+
+#[lang="sized"]
+trait Sized {}
+
+#[lang="copy"]
+trait Copy {}
 
 mod pebblerust {
   pub mod lib;
@@ -35,7 +37,6 @@ extern fn click_config_provider(_: *mut TextLayer) {
 }
 
 extern fn window_load_handler(window: *mut Window) {
-  app_log(AppLogLevelDebug, "window loaded!\0");
   let window_layer = window_get_root_layer(window);
   let window_bounds = layer_get_bounds(window_layer);
 
@@ -51,16 +52,15 @@ extern fn window_load_handler(window: *mut Window) {
   window_set_click_config_provider_with_context(window, click_config_provider, text_layer);
 }
 
-extern fn window_unload_handler(window: *mut Window) {
+extern fn window_unload_handler(_: *mut Window) {
 }
-extern fn window_appear_handler(window: *mut Window) {
+extern fn window_appear_handler(_: *mut Window) {
 }
-extern fn window_disappear_handler(window: *mut Window) {
+extern fn window_disappear_handler(_: *mut Window) {
 }
 
 #[no_mangle]
-pub extern fn main() -> int {
-  app_log(AppLogLevelDebug, "Pebble-y Rust, Rust-y Pebble\0");
+pub extern fn main() -> i32 {
   let window = window_create();
   let window_handlers = WindowHandlers {
     load: window_load_handler,

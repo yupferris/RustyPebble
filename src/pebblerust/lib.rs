@@ -36,8 +36,8 @@ pub fn window_stack_push(window: *mut Window, animated: bool) {
 
 pub fn app_log(level: AppLogLevel, msg: &str) {
   unsafe {
-    let (filename, _): (*const u8, uint) = transmute("rusty");
-    let (message, _): (*const u8, uint) = transmute(msg);
+    let (filename, _): (*const u8, u32) = transmute("rusty");
+    let (message, _): (*const u8, u32) = transmute(msg);
     c::app_log(level as u8, filename, 0, message);
   }
 }
