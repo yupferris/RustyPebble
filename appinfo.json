@@ -20,10 +20,5 @@
         "menuIcon": true
       }
     ]
-  },
-  "targetPlatforms": [
-    "aplite",
-    "basalt"
-  ],
-  "sdkVersion": "3"
+  }
 }
